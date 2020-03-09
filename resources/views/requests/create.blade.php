@@ -3,165 +3,135 @@
 @section("title", "Create Request")
 
 @section('content')
-    <div class="container offset-sm-1 col-sm-10 offset-sm-1">
+    <div class="container offset-sm-1 col-sm-10 offset-sm-1 card card-body" style="background-color: lightgrey">
         <form action="{{route("requests.store")}}" method="POST">
             @csrf
-            {{-- Requestor --}}
-            <div class="form-group row">
-                <label for="requestor" class="col-sm-2 col-form-label">REQUESTOR :</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control @error("requestor") is-invalid @enderror" id="requestor" name="requestor">
-                    @error("requestor")
-                        <p class="text-danger">{{$message}}</p>
-                    @enderror
+            <div class="row text-center">
+                <div class="col">
+                    {{-- Requestor --}}
+                    <div class="form-group row">
+                        <label for="requestor" class="col-sm-3 col-form-label">REQUESTOR :</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control @error("requestor") is-invalid @enderror" id="requestor" name="requestor">
+                            @error("requestor")
+                            <p class="text-danger">{{$message}}</p>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            {{-- Material Type --}}
-            <div class="form-group row">
-                <label for="materialType" class="col-sm-2 col-form-label">Material Type :</label>
-                <div class="col-sm-10">
-                    <select class="form-control select2 select2-hidden-accessible @error("materialType") is-invalid @enderror"
-                            style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" name="materialType">
-                            <option selected data-select2-id="0"></option>
-{{--                        @foreach($icmMaterialTypes as $icmMaterialType)--}}
-                            <option data-select2-id="1">Alabama</option>
-{{--                        @endforeach--}}
-                    </select>
-                    @error("materialType")
-                        <p class="text-danger">{{$message}}</p>
-                    @enderror
+                <div class="col">
+                    {{-- Material Type --}}
+                    <div class="row">
+                        <label for="materialType" class="col-sm-3 col-form-label">Material Type :</label>
+                        <div class="col-sm-9">
+                            <select class="form-control select2 select2-hidden-accessible @error("materialType") is-invalid @enderror"
+                                    style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" name="materialType">
+                                <option selected data-select2-id="0">Select...</option>
+                                @foreach($materialTypes as $materialType)
+                                    <option value="{{$materialType->matTypeID}}">{{$materialType->description}}</option>
+                                @endforeach
+                            </select>
+                            @error("materialType")
+                            <p class="text-danger">{{$message}}</p>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
             </div>
 
             {{-- Long Description --}}
-            <div class="form-group row mt-4 ml-0">
-                <label for="longDescription">Long Description: (Please use catalog guide)</label>
-                <textarea class="form-control mr-3 @error("longDescription") is-invalid @enderror" id="longDescription" rows="5" name="longDescription"></textarea>
+            <div class="form-group row mt-4 ml-2">
+                <label for="longDescription">
+                    Long Description: (Naming Conventions :
+                    <span class="text-primary" id="HDtooltipLD">HW</span>,
+                    <span class="text-success" id="SWPtooltipLD">SWP</span>,
+                    <span class="text-info" id="CSDtooltipLD">CSD</span>,
+                    <span class="text-danger" id="CSCtooltipLD">CSC</span>
+                    )
+                </label>
+                <textarea class="form-control mr-3 @error("longDescription") is-invalid @enderror" id="longDescription" name="longDescription"></textarea>
                 @error("longDescription")
                     <p class="text-danger">{{$message}}</p>
                 @enderror
             </div>
-            <div class="row">
-                <div class="card m-4" style="width: 50em">
-                    <div class="card-header text-bold">Naming Conventions:</div>
-                    <div class="card-body py-2">
-                        <div class="row text-primary">
-                            <div class="col-sm-2">HW:</div>
-                            <div class="col-sm-10">
-                                (Primary Component) brand/model/CPU/HDD/memory/opt drive/OS
-                            </div>
-                        </div>
-                        <div class="row text-primary">
-                            <div class="offset-sm-2 col-sm-10 mt-0">
-                                (Secondary Component) wlan/security/camera/screen type & size/software/input devices
-                            </div>
-                        </div>
-                        <div class="row text-success">
-                            <div class="col-sm-2">SWP:</div>
-                            <div class="col-sm-10">
-                                brand/model/general description
-                            </div>
-                        </div>
-                        <div class="row" style="color: magenta">
-                            <div class="col-sm-2">CSD:</div>
-                            <div class="col-sm-10">
-                                brand/model/general description
-                            </div>
-                        </div>
-                        <div class="row text-danger">
-                            <div class="col-sm-2">CAC:</div>
-                            <div class="col-sm-10">
-                                brand/PN [or] model#/capacity/where used
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             {{-- Short Description --}}
-            <div class="form-group row mt-4 ml-0">
-                <label for="shortDescription">Short Description: (Please follow the given naming convention)</label>
-                <textarea class="form-control mr-3 @error("shortDescription") is-invalid @enderror" id="shortDescription" rows="3" name="shortDescription"></textarea>
+            <div class="form-group row mt-4 ml-2">
+                <label for="shortDescription">
+                    Short Description: (Naming Conventions :
+                    <span class="text-primary" id="HDtooltipSD">HW</span>,
+                    <span class="text-success" id="SWPtooltipSD">SWP</span>,
+                    <span class="text-info" id="CSDtooltipSD">CSD</span>,
+                    <span class="text-danger" id="CSCtooltipSD">CSC</span>
+                    )
+                </label>
+                <textarea class="form-control mr-3 @error("shortDescription") is-invalid @enderror" id="shortDescription" name="shortDescription"></textarea>
                 @error("shortDescription")
                     <p class="text-danger">{{$message}}</p>
                 @enderror
             </div>
-            <div class="row">
-                <div class="card m-4" style="width: 50em">
-                    <div class="card-header text-bold">Naming Conventions:</div>
-                    <div class="card-body py-2">
-                        <div class="row text-primary">
-                            <div class="col-sm-2">HW:</div>
-                            <div class="col-sm-10">
-                                brand/model/CPU/HDD/memory/opt drive/OS
-                            </div>
+
+            <div class="form-group row">
+                <div class="col">
+                    {{-- Mfr Part Number. --}}
+                    <div class="row mt-3 ml-1">
+                        <label for="mfrPartNo" class="col-sm-4 col-form-label">Mfr Part Number:</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control @error("mfrPartNo") is-invalid @enderror" id="mfrPartNo" name="mfrPartNo">
+                            @error("mfrPartNo")
+                            <p class="text-danger">{{$message}}</p>
+                            @enderror
                         </div>
-                        <div class="row text-success">
-                            <div class="col-sm-2">SWP:</div>
-                            <div class="col-sm-10">
-                                brand/model/general description
-                            </div>
-                        </div>
-                        <div class="row" style="color: magenta">
-                            <div class="col-sm-2">CSD:</div>
-                            <div class="col-sm-10">
-                                brand/model/general description
-                            </div>
-                        </div>
-                        <div class="row text-danger">
-                            <div class="col-sm-2">CAC:</div>
-                            <div class="col-sm-10">
-                                brand/PN [or] model#/capacity/where used
-                            </div>
+                    </div>
+                </div>
+                <div class="col">
+                    {{-- Buy Price --}}
+                    <div class="row mt-3">
+                        <label for="buyPrice" class="col-sm-4 col-form-label">Buy Price :</label>
+                        <div class="col-sm-8">
+                            <input type="number" step=".000001" class="form-control @error("buyPrice") is-invalid @enderror" id="buyPrice" name="buyPrice">
+                            @error("buyPrice")
+                            <p class="text-danger">{{$message}}</p>
+                            @enderror
                         </div>
                     </div>
                 </div>
             </div>
 
-            {{-- Mfr Part No. --}}
-            <div class="form-group row mt-3">
-                <label for="mfrPartNo" class="col-sm-2 col-form-label">Mfr Part No:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control @error("mfrPartNo") is-invalid @enderror" id="mfrPartNo" name="mfrPartNo">
-                    @error("mfrPartNo")
-                        <p class="text-danger">{{$message}}</p>
-                    @enderror
+            <div class="row">
+                <div class="col">
+                    {{-- Date Requested --}}
+                    <div class="form-group row ml-1">
+                        <label for="buyPrice" class="col-sm-4 col-form-label">Date Requested :</label>
+                        <div class="col-sm-8">
+                            <p class="text-danger pt-2 text-left">{{date('Y/m/d H:m:s A')}}</p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            {{-- Buy Price --}}
-            <div class="form-group row mt-3">
-                <label for="buyPrice" class="col-sm-2 col-form-label">Buy Price :</label>
-                <div class="col-sm-10">
-                    <input type="number" step=".000001" class="form-control @error("buyPrice") is-invalid @enderror" id="buyPrice" name="buyPrice">
-                    @error("buyPrice")
-                        <p class="text-danger">{{$message}}</p>
-                    @enderror
-                </div>
-            </div>
-
-            {{-- Date Requested --}}
-            <div class="form-group row mt-3">
-                <label for="buyPrice" class="col-sm-2 col-form-label">Date Requested :</label>
-                <div class="col-sm-10">
-                    <p class="text-danger pt-2">{{date('Y/m/d H:m:s A')}}</p>
-                </div>
-            </div>
-
-            {{-- Approver Name --}}
-            <div class="form-group row">
-                <label for="approverName" class="col-sm-2 col-form-label">Approver Name :</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control @error("approverName") is-invalid @enderror" id="approverName" name="approverName">
-                    @error("approverName")
-                        <p class="text-danger">{{$message}}</p>
-                    @enderror
+                <div class="col">
+                    {{-- Approver Name --}}
+                    <div class="form-group row">
+                        <label for="approverName" class="col-sm-4 col-form-label align-items-center d-flex">Approver Name :</label>
+                        <div class="col-sm-8">
+{{--                            Tooltip--}}
+{{--                            <p class="text-primary">(For SWP or Other HW item, please select appropriate name of <strong>product manager</strong>)</p>--}}
+                            <select class="form-control select2 select2-hidden-accessible @error("approverName") is-invalid @enderror"
+                                    style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" name="approverName">
+                                <option selected data-select2-id="0">Select...</option>
+                                @foreach($accounts as $account)
+                                    <option value="{{$account->AccountName}}">{{$account->AccountName}}</option>
+                                @endforeach
+                            </select>
+                            @error("approverName")
+                            <p class="text-danger">{{$message}}</p>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
             </div>
 
             {{-- Reference Doc --}}
-            <div class="form-group row">
+            <div class="form-group row ml-1">
                 <label for="referenceDoc" class="col-12">Reference Doc :</label>
                 <div class="ml-3">
                     <textarea name="referenceDoc" id="summernote" class="w-100"></textarea>
@@ -181,6 +151,11 @@
 
 @section("css")
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-bs4.min.css" rel="stylesheet">
+    <style>
+        .tooltip-inner {
+            width: 1000px !important;
+        }
+    </style>
 @endsection
 
 @section('js')
@@ -191,6 +166,43 @@
             $('#summernote').summernote({
                 height: 100,
                 width: "100%"
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function(){
+            $('#HDtooltipLD').tooltip({
+                title:  "<p>(Primary Component) <span class='text-primary'>brand/model/CPU/HDD/memory/opt drive/OS</span></p>" +
+                        "<p>(Secondary Component) <span class='text-primary'>wlan/security/camera/screen type & size/software/input devices</span></p>",
+                html: true
+            });
+            $('#SWPtooltipLD').tooltip({
+                title:  "<p class='text-success'>brand/model/general description</p>",
+                html: true
+            });
+            $('#CSDtooltipLD').tooltip({
+                title:  "<p class='text-info'>brand/model/general description</p>",
+                html: true
+            });
+            $('#CSCtooltipLD').tooltip({
+                title:  "<p class='text-danger'>brand/PN [or] model#/capacity/where used</p>",
+                html: true
+            });
+            $('#HDtooltipSD').tooltip({
+                title:  "<p class='text-primary'>brand/model/CPU/HDD/memory/opt drive/OS</p>",
+                html: true
+            });
+            $('#SWPtooltipSD').tooltip({
+                title:  "<p class='text-success'>brand/model/general description</p>",
+                html: true
+            });
+            $('#CSDtooltipSD').tooltip({
+                title:  "<p class='text-info'>brand/model/general description</p>",
+                html: true
+            });
+            $('#CSCtooltipSD').tooltip({
+                title:  "<p class='text-danger'>brand/PN [or] model#/capacity/where used</p>",
+                html: true
             });
         });
     </script>
