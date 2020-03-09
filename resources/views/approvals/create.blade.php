@@ -50,18 +50,22 @@
                 </div>
             </div>
         </div>
-        <form action="" method="POST">
+        <form action="{{route("approvals.store")}}" method="POST">
+            @csrf
             {{-- Product Manager --}}
             <div class="form-group row">
                 <label for="productManager" class="col-sm-3 col-form-label">PRODUCT MANAGER :</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="productManager" name="productManager">
+                    <input type="text" class="form-control  @error("productManager") is-invalid @enderror" id="productManager" name="productManager">
+                    @error("productManager")
+                        <p class="text-danger">{{$message}}</p>
+                    @enderror
                 </div>
             </div>
 
             {{-- Approved --}}
             <div class="form-group row">
-                <label for="materialType" class="col-sm-3 col-form-label">Approved :</label>
+                <label for="approved" class="col-sm-3 col-form-label">Approved :</label>
                 <div class="col-sm-9">
                     <div class="form-group">
                         <div class="custom-control custom-radio d-inline mr-2">
@@ -73,60 +77,69 @@
                             <label for="approvedNo" class="custom-control-label">No</label>
                         </div>
                     </div>
+                    @error("approved")
+                        <p class="text-danger">{{$message}}</p>
+                    @enderror
                 </div>
             </div>
 
             {{-- Prototype Text --}}
             <div class="form-group row mt-4 ml-0">
                 <label for="prototypeText">Prototype Text :</label>
-                <textarea class="form-control mr-3" id="prototypeText" name="prototypeText"></textarea>
+                <textarea class="form-control mr-3 @error("prototypeText") is-invalid @enderror" id="prototypeText" name="prototypeText"></textarea>
+                @error("prototypeText")
+                    <p class="text-danger">{{$message}}</p>
+                @enderror
             </div>
 
             {{-- Material Group 1 --}}
             <div class="form-group row">
-                <label for="materialType" class="col-sm-3 col-form-label">Material Group 1 :</label>
+                <label for="materialGroup1" class="col-sm-3 col-form-label">Material Group 1 :</label>
                 <div class="col-sm-9">
-                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                        <option selected="selected" data-select2-id="3">Alabama</option>
-                        <option data-select2-id="30">Alaska</option>
-                        <option data-select2-id="31">California</option>
-                        <option data-select2-id="32">Delaware</option>
-                        <option data-select2-id="33">Tennessee</option>
-                        <option data-select2-id="34">Texas</option>
-                        <option data-select2-id="35">Washington</option>
+                    <select class="form-control select2 select2-hidden-accessible @error("materialGroup1") is-invalid @enderror"
+                            style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" name="materialGroup1" id="materialGroup1">
+                        <option data-select2-id="0" name="materialGroup1"></option>
+{{--                        @foreach($icmMatGroup1s as $icmMatGroup1)--}}
+                            <option data-select2-id="3">Alabama</option>
+{{--                        @endforeach--}}
                     </select>
+                    @error("materialGroup1")
+                        <p class="text-danger">{{$message}}</p>
+                    @enderror
                 </div>
             </div>
 
             {{-- Material Group 2 --}}
             <div class="form-group row">
-                <label for="materialType" class="col-sm-3 col-form-label">Material Group 2 :</label>
+                <label for="materialGroup2" class="col-sm-3 col-form-label">Material Group 2 :</label>
                 <div class="col-sm-9">
-                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                        <option selected="selected" data-select2-id="3">Alabama</option>
-                        <option data-select2-id="30">Alaska</option>
-                        <option data-select2-id="31">California</option>
-                        <option data-select2-id="32">Delaware</option>
-                        <option data-select2-id="33">Tennessee</option>
-                        <option data-select2-id="34">Texas</option>
-                        <option data-select2-id="35">Washington</option>
+                    <select class="form-control select2 select2-hidden-accessible @error("materialGroup2") is-invalid @enderror"
+                            style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" name="materialGroup2" id="materialGroup2">
+                        <option data-select2-id="0"></option>
+                        {{--                        @foreach($icmMatGroup2s as $icmMatGroup2)--}}
+                        <option data-select2-id="3">Alabama</option>
+                        {{--                        @endforeach--}}
                     </select>
+                    @error("materialGroup2")
+                        <p class="text-danger">{{$message}}</p>
+                    @enderror
                 </div>
             </div>
 
             {{-- Material Group 3 --}}
             <div class="form-group row">
-                <label for="materialType" class="col-sm-3 col-form-label">Material Group 3 :</label>
+                <label for="materialGroup3" class="col-sm-3 col-form-label">Material Group 3 :</label>
                 <div class="col-sm-9">
-                    <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                        <option selected="selected" data-select2-id="3">Alabama</option>
-                        <option data-select2-id="30">Alaska</option>
-                        <option data-select2-id="31">California</option>
-                        <option data-select2-id="32">Delaware</option>
-                        <option data-select2-id="33">Tennessee</option>
-                        <option data-select2-id="34">Texas</option>
-                        <option data-select2-id="35">Washington</option>
+                    <select class="form-control select2 select2-hidden-accessible @error("materialGroup3") is-invalid @enderror"
+                            style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" name="materialGroup3" id="materialGroup3">
+                        <option data-select2-id="0"></option>
+                        {{--                        @foreach($icmMatGroup3s as $icmMatGroup3)--}}
+                        <option data-select2-id="3">Alabama</option>
+                        {{--                        @endforeach--}}
                     </select>
+                    @error("materialGroup3")
+                        <p class="text-danger">{{$message}}</p>
+                    @enderror
                 </div>
             </div>
 
@@ -134,7 +147,10 @@
             <div class="form-group row">
                 <label for="categoryAssignment" class="col-sm-3 col-form-label">Category Assignment :</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control" id="categoryAssignment" name="categoryAssignment">
+                    <input type="text" class="form-control @error("categoryAssignment") is-invalid @enderror" id="categoryAssignment" name="categoryAssignment">
+                    @error("categoryAssignment")
+                        <p class="text-danger">{{$message}}</p>
+                    @enderror
                 </div>
             </div>
 
