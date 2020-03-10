@@ -25,8 +25,8 @@
                         <label for="materialType" class="col-sm-3 col-form-label">Material Type :</label>
                         <div class="col-sm-9">
                             <select class="form-control select2 select2-hidden-accessible @error("materialType") is-invalid @enderror"
-                                    style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" name="materialType">
-                                <option selected data-select2-id="0">Select...</option>
+                                    style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" name="materialType" id="materialType">
+                                <option selected data-select2-id="0">Select Material Type</option>
                                 @foreach($materialTypes as $materialType)
                                     <option value="{{$materialType->matTypeID}}">{{$materialType->description}}</option>
                                 @endforeach
@@ -117,10 +117,10 @@
 {{--                            <p class="text-primary">(For SWP or Other HW item, please select appropriate name of <strong>product manager</strong>)</p>--}}
                             <select class="form-control select2 select2-hidden-accessible @error("approverName") is-invalid @enderror"
                                     style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" name="approverName">
-                                <option selected data-select2-id="0">Select...</option>
-                                @foreach($accounts as $account)
-                                    <option value="{{$account->AccountName}}">{{$account->AccountName}}</option>
-                                @endforeach
+                                <option selected data-select2-id="0">Select Material Type first</option>
+{{--                                @foreach($accounts as $account)--}}
+{{--                                    <option value="{{$account->AccountName}}">{{$account->AccountName}}</option>--}}
+{{--                                @endforeach--}}
                             </select>
                             @error("approverName")
                             <p class="text-danger">{{$message}}</p>
@@ -151,16 +151,12 @@
 
 @section("css")
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-bs4.min.css" rel="stylesheet">
-    <style>
-        .tooltip-inner {
-            width: 1000px !important;
-        }
-    </style>
 @endsection
 
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-bs4.min.js"></script>
+{{--    Summernote--}}
     <script>
         $(document).ready(function() {
             $('#summernote').summernote({
@@ -169,6 +165,7 @@
             });
         });
     </script>
+{{--    Tooltip--}}
     <script>
         $(document).ready(function(){
             $('#HDtooltipLD').tooltip({
@@ -205,5 +202,28 @@
                 html: true
             });
         });
+    </script>
+{{--    Approvers Dynamic Dropdown--}}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('select[name="materialType"]').on('change', function () {
+                var materialTypeId = $(this).val();
+                if (materialTypeId && materialTypeId > 0) {
+                    $.ajax({
+                        url:'/materialTypes/' + materialTypeId,
+                        type: 'GET',
+                        dataType: "json",
+                        success: function (data) {
+                            $('select[name="approverName"]').empty();
+                            $.each(data, function (key, value) {
+                                jQuery('select[name="approverName"]').append('<option value="'+ value +'">'+ value +'</option>');
+                            })
+                        }
+                    });
+                } else {
+                    $('select[name="approverName"]').empty().append('<option value="'+ 0 +'">'+ 'Select Material Type first' +'</option>');
+                }
+            })
+        })
     </script>
 @stop
