@@ -4,14 +4,14 @@
 
 @section('content')
     <div class="card">
-        <h1 class="text-center card-header bg-gradient-gray-dark">~ Requestor Form ~</h1>
+        <h4 class="text-center card-header bg-gradient-gray-dark">~ Requestor Form ~</h4>
         <div class="card-body">
             <form action="{{route("requests.store")}}" method="POST">
                 @csrf
-                <div class="row">
+                <div class="row d-flex align-items-center">
                     <div class="col-sm mx-3">
                         {{-- Requestor --}}
-                        <div class="form-group row">
+                        <div class="form-group row d-flex align-items-center p-0">
                             <label for="requestor" class="col-sm-4 col-form-label">REQUESTOR :</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control @error("requestor") is-invalid @enderror" id="requestor" name="requestor" disabled>
@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-sm mx-3">
                         {{-- Mfr Part Number. --}}
-                        <div class="row">
+                        <div class="form-group row d-flex align-items-center p-0">
                             <label for="mfrPartNo" class="col-sm-4 col-form-label">Mfr Part Number:</label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control @error("mfrPartNo") is-invalid @enderror" id="mfrPartNo" name="mfrPartNo">
@@ -35,10 +35,10 @@
                     </div>
                     <div class="col-sm mx-3">
                         {{-- Date Requested --}}
-                        <div class="form-group row">
-                            <label for="dateRequested" class="col-sm-4 col-form-label">Date Requested :</label>
-                            <div class="col-sm-8 pt-1">
-                                <input type="text" id="dateRequested" name="dateRequested" readonly class="text-bold text-danger" value="{{date('Y/m/d H:m:s A')}}"
+                        <div class="form-group row d-flex align-items-center">
+                            <label for="dateRequested" class="col-sm-5 col-form-label">Date Requested :</label>
+                            <div class="col-sm-7 pt-1">
+                                <input type="text" id="dateRequested" name="dateRequested" readonly class="text-bold text-danger" value="{{date('Y/m/d H:i:s A')}}"
                                        style="border:none; outline: none; background-color: transparent; font-family: inherit; font-size: inherit; width: 100%">
                             </div>
                         </div>
@@ -77,10 +77,10 @@
                     @enderror
                 </div>
 
-                <div class="form-group row">
+                <div class="form-group row d-flex align-items-center">
                     <div class="col-sm mx-3">
                         {{-- Buy Price --}}
-                        <div class="row">
+                        <div class="row d-flex align-items-center">
                             <label for="buyPrice" class="col-sm-4 col-form-label">Buy Price :</label>
                             <div class="col-sm-8">
                                 <input type="number" step=".000001" class="form-control @error("buyPrice") is-invalid @enderror" id="buyPrice" name="buyPrice">
@@ -92,10 +92,11 @@
                     </div>
                     <div class="col-sm mx-3">
                         {{--Material Type--}}
-                        <div class="row">
+                        <div class="row d-flex align-items-center">
                             <label for="materialType" class="col-sm-4 col-form-label">Material Type :</label>
                             <div class="col-sm-8">
                                 <select class="form-control select2 select2bs4" style="width: 100%" name="materialType" id="materialType">
+                                    <option value="0">Select Material Type</option>
                                     @foreach($materialTypes as $materialType)
                                         <option value="{{$materialType->matTypeID}}">{{$materialType->description}}</option>
                                     @endforeach
@@ -108,7 +109,7 @@
                     </div>
                     <div class="col-sm mx-3">
                         {{-- Approver Name --}}
-                        <div class="form-group row">
+                        <div class="row d-flex align-items-center">
                             <label for="approverName" class="col-sm-4 col-form-label align-items-center d-flex">Approver Name :</label>
                             <div class="col-sm-8">
                                 {{--Tooltip--}}

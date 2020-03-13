@@ -21,13 +21,16 @@ class ApprovalsController extends Controller
     {
         // Change depending on user login
         $creatorID = 56395;
-        $header = Header::where("creatorID", $creatorID)->first();
+//        $header = Header::where("creatorID", $creatorID)->first();
+        $header = Header::orderBy("dateRequested", "DESC")->first();
         $materialType = MaterialType::where("matTypeID", $header->materialTypeID)->first()->description;
+        $approverName = Accounts::where("AccountID", $header->creatorID)->first();
 
         return view("approvals/create")->with([
             "materialType"=>$materialType,
             "header"=>$header,
-            "matGroups1"=>MatGroup1::all()->sortBy("Maj1")
+            "matGroups1"=>MatGroup1::all()->sortBy("Maj1"),
+            "approverName"=>$approverName->AccountName
         ]);
     }
 

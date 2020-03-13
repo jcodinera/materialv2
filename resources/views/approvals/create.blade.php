@@ -13,56 +13,54 @@
                 </button>
             </div>
         </div>
-        <div class="card-body border-primary" style="border-color: dodgerblue">
-            <div class="row">
-                <div class="col-sm">
-                    <div class="row">
-                        <div class="col-4 text-bold">Requestor:</div>
-                        <div class="col-8"></div>
+        <div class="card-body border border-primary">
+            <div class="row d-flex align-items-center">
+                <div class="col-sm mx-1">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-sm-5 px-0 py-1 text-bold">Requestor:</div>
+                        <div class="col-sm-7 py-1">Joven Codinera</div>
                     </div>
                 </div>
-                <div class="col-sm">
-                    <div class="row">
-                        <div class="col-4 text-bold">Material Type:</div>
-                        <div class="col-8">{{$materialType}}</div>
+                <div class="col-sm mx-1">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-sm-5 px-0 py-1 text-bold">Material Type:</div>
+                        <div class="col-sm-7 py-1">{{$materialType}}</div>
                     </div>
                 </div>
-                <div class="col-sm">
-                    <div class="row">
-                        <div class="col-5 text-bold">Approver Name:</div>
-                        <div class="col-7">{{$header->approverName}}</div>
+                <div class="col-sm mx-1">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-sm-6 px-0 py-1 text-bold">Approver Name:</div>
+                        <div class="col-sm-6 py-1">{{$approverName}}</div>
                     </div>
                 </div>
             </div>
-            <hr>
-            <div class="row my-3 mx-2">
-                <div class="col-12 mb-2 text-bold">Long Description:</div>
-                <div class="col-12 ml-3">{{$header->longDescription}}</div>
+            <div class="row d-flex align-items-center">
+                <div class="col-sm mx-1">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-sm-5 px-0 py-1 text-bold">Mfr Part Number:</div>
+                        <div class="col-sm-7 py-1">{{$header->mfrNumber}}</div>
+                    </div>
+                </div>
+                <div class="col-sm mx-1">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-sm-5 px-0 py-1 text-bold">Buy Price:</div>
+                        <div class="col-sm-7 py-1">{{$header->buyPrice}}</div>
+                    </div>
+                </div>
+                <div class="col-sm mx-1">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-sm-6 px-0 py-1 text-bold">Date Requested:</div>
+                        <div class="col-sm-6 py-1">{{$header->dateRequested}}</div>
+                    </div>
+                </div>
             </div>
-            <div class="row my-3 mx-2">
-                <div class="col-12 mb-2 text-bold">Short Description:</div>
-                <div class="col-12 ml-3">{{$header->shortDescription}}</div>
+            <div class="row my-3">
+                <div class="text-bold ml-1">Long Description:</div>
+                <div class="col-12">{{$header->longDescription}}</div>
             </div>
-            <hr>
-            <div class="row">
-                <div class="col-sm">
-                    <div class="row">
-                        <div class="col-4 text-bold">Mfr Part No:</div>
-                        <div class="col-8">{{$header->mfrNumber}}</div>
-                    </div>
-                </div>
-                <div class="col-sm">
-                    <div class="row">
-                        <div class="col-4 text-bold">Buy Price:</div>
-                        <div class="col-8">{{$header->buyPrice}}</div>
-                    </div>
-                </div>
-                <div class="col-sm">
-                    <div class="row">
-                        <div class="col-5 text-bold">Date Requested:</div>
-                        <div class="col-7">{{$header->dateRequested}}</div>
-                    </div>
-                </div>
+            <div class="row my-3">
+                <div class="text-bold ml-1">Short Description:</div>
+                <div class="col-12">{{$header->shortDescription}}</div>
             </div>
             <div class="accordion mt-3" id="accordionExample">
                 <div class="card">
@@ -85,14 +83,14 @@
 
     {{--Approver's Form--}}
     <div class="card">
-        <h3 class="card-header bg-gradient-gray-dark text-center">~ Approver Form ~</h3>
+        <h4 class="card-header bg-gradient-gray-dark text-center">~ Approver Form ~</h4>
         <div class="card-body">
             <form action="{{route("approvals.store")}}" method="POST">
                 @csrf
                 {{--Product Manager & Approved--}}
-                <div class="row">
+                <div class="row d-flex align-items-center">
                     <div class="col-sm-7">
-                        <div class="form-group row">
+                        <div class="form-group row d-flex align-items-center">
                             <label for="productManager" class="col-sm-3 col-form-label">PRODUCT MANAGER :</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control  @error("productManager") is-invalid @enderror" id="productManager" name="productManager">
@@ -123,10 +121,10 @@
                 </div>
 
                 {{--Material Groups--}}
-                <div class="row">
+                <div class="row d-flex align-items-center">
                     {{--Material Group 1--}}
                     <div class="col-sm mx-2">
-                        <div class="form-group row">
+                        <div class="form-group row d-flex align-items-center">
                             <label for="materialGroup1" class="col-sm-4 col-form-label">Mat. Group 1 :</label>
                             <div class="col-sm-8">
                                 <select class="form-control select2 select2bs4 @error("categoryAssignment") is-invalid @enderror" style="width: 100%;"
@@ -144,7 +142,7 @@
                     </div>
                     {{--Material Group 2--}}
                     <div class="col-sm mx-2" id="MG2_col">
-                        <div class="form-group row">
+                        <div class="form-group row d-flex align-items-center">
                             <label for="materialGroup2" class="col-sm-4 col-form-label">Mat. Group 2 :</label>
                             <div class="col-sm-8">
                                 <select class="form-control select2 select2bs4 @error("categoryAssignment") is-invalid @enderror" style="width: 100%;"
@@ -159,7 +157,7 @@
                     </div>
                     {{--Material Group 3--}}
                     <div class="col-sm mx-2" id="MG3_col">
-                        <div class="form-group row">
+                        <div class="form-group row d-flex align-items-center">
                             <label for="materialGroup3" class="col-sm-4 col-form-label">Mat. Group 3 :</label>
                             <div class="col-sm-8">
                                 <select class="form-control select2 select2bs4 @error("categoryAssignment") is-invalid @enderror" style="width: 100%;"
@@ -195,156 +193,183 @@
 
                 {{--Submit Button--}}
                 <div class="text-center">
-                    <button class="btn btn-info my-2" type="submit" style="width: 30%">Request for New Material Group</button>
+                    <button class="btn btn-info my-2" type="submit">Request for New Material Group</button>
                 </div>
             </form>
         </div>
     </div>
 
     {{--MFC & ICS--}}
-   <div class="text-center">
-       <div class="row mb-1">
-           <div class="offset-sm-4 col-sm-4">
-               <span class="text-bold ml-4">MFC</span>
-           </div>
-           <div class="col-4">
-               <span class="text-bold ml-4">ICS</span>
-           </div>
-       </div>
-       <hr>
-       <div class="row align-items-center my-2">
-           <div class="col-sm-4 text-bold">PARTS</div>
-           <div class="col-sm-4 d-flex align-items-center justify-content-center">
-               <input type="number" id="partsMfcMonths" name="partsMfcMonths" class="form-control" style="width: 60px">
-               <span class="text-danger ml-2">months</span>
-           </div>
-           <div class="col-sm-4 d-flex align-items-center justify-content-center">
-               <input type="number" id="partsIcsMonths" name="partsIcsMonths" class="form-control" style="width: 60px">
-               <span class="text-danger ml-2">months</span>
-           </div>
-       </div>
-       <div class="row align-items-center  my-2">
-           <div class="col-sm-4 text-bold">LABOR</div>
-           <div class="col-sm-4 d-flex align-items-center justify-content-center">
-               <input type="number" id="laborMfcMonths" name="laborMfcMonths" class="form-control" style="width: 60px">
-               <span class="text-danger ml-2">months</span>
-           </div>
-           <div class="col-sm-4 d-flex align-items-center justify-content-center">
-               <input type="number" id="laborIcsMonths" name="laborIcsMonths" class="form-control" style="width: 60px">
-               <span class="text-danger ml-2">months</span>
-           </div>
-       </div>
-       <div class="row align-items-center  my-2">
-           <div class="col-sm-4 text-bold">ON-SITE</div>
-           <div class="col-sm-4 d-flex align-items-center justify-content-center">
-               <input type="number" id="onsiteMfcMonths" name="onsiteMfcMonths" class="form-control" style="width: 60px">
-               <span class="text-danger ml-2">months</span>
-           </div>
-           <div class="col-sm-4 d-flex align-items-center justify-content-center">
-               <input type="number" id="onsiteIcsMonths" name="onsiteIcsMonths" class="form-control" style="width: 60px">
-               <span class="text-danger ml-2">months</span>
-           </div>
-       </div>
-   </div>
-
-    {{--Waaranty, Vendor's Agreement, Local&Foreign--}}
-    <div class="row mt-4">
-        {{--Warranty Period of Reference--}}
-        <div class="col-sm-3 mt-2 pl-5">
-            <label for="warranty">
-                Warranty Period of Reference<i class="fa fa-question-circle" id="tooltip"></i>:
-            </label>
-            <div class="d-block ml-3">
-                <div class="custom-control custom-radio">
-                    <input class="custom-control-input" type="radio" id="warranty1" name="warranty">
-                    <label for="warranty1" class="custom-control-label font-weight-normal">Delivery Date to Client</label>
-                </div>
-                <div class="custom-control custom-radio">
-                    <input class="custom-control-input" type="radio" id="warranty2" name="warranty">
-                    <label for="warranty2" class="custom-control-label font-weight-normal">Invoice Date of Supplier</label>
-                </div>
-                <div class="custom-control custom-radio">
-                    <input class="custom-control-input" type="radio" id="warranty3" name="warranty">
-                    <label for="warranty3" class="custom-control-label font-weight-normal">Receiving Date from Supplier</label>
-                </div>
-                <div class="custom-control custom-radio">
-                    <input class="custom-control-input" type="radio" id="warrant4" name="warranty">
-                    <label for="warrant4" class="custom-control-label font-weight-normal">Not Applicable</label>
-                </div>
-            </div>
+    <div class="card">
+        <!-- /.card-header -->
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="text-center bg-gradient-gray">
+                        <th></th>
+                        <th>MFC</th>
+                        <th>ICS</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    <tr>
+                        <td class="text-bold pt-3">PARTS</td>
+                        <td class="form-group-sm">
+                            <div class="row justify-content-center d-flex align-items-center">
+                                <label for="partsMfcMonths" type="hidden"></label>
+                                <input type="number" id="partsMfcMonths" name="partsMfcMonths" class="form-control" style="width: 60px">
+                                <span class="text-danger ml-2">months</span>
+                            </div>
+                        </td>
+                        <td class="form-group-sm">
+                            <div class="row justify-content-center d-flex align-items-center">
+                                <label for="partsIcsMonths" type="hidden"></label>
+                                <input type="number" id="partsIcsMonths" name="partsIcsMonths" class="form-control" style="width: 60px">
+                                <span class="text-danger ml-2">months</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold pt-3">LABOR</td>
+                        <td class="form-group-sm">
+                            <div class="row justify-content-center d-flex align-items-center">
+                                <label for="laborMfcMonths" type="hidden"></label>
+                                <input type="number" id="laborMfcMonths" name="laborMfcMonths" class="form-control" style="width: 60px">
+                                <span class="text-danger ml-2">months</span>
+                            </div>
+                        </td>
+                        <td class="form-group-sm">
+                            <div class="row justify-content-center d-flex align-items-center">
+                                <label for="laborIcsMonths" type="hidden"></label>
+                                <input type="number" id="laborIcsMonths" name="laborIcsMonths" class="form-control" style="width: 60px">
+                                <span class="text-danger ml-2">months</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-bold pt-3">ON-SITE</td>
+                        <td class="form-group-sm">
+                            <div class="row justify-content-center d-flex align-items-center">
+                                <label for="onsiteMfcMonths" type="hidden"></label>
+                                <input type="number" id="onsiteMfcMonths" name="onsiteMfcMonths" class="form-control" style="width: 60px">
+                                <span class="text-danger ml-2">months</span>
+                            </div>
+                        </td>
+                        <td class="form-group-sm">
+                            <div class="row justify-content-center d-flex align-items-center">
+                                <label for="onsiteIcsMonths" type="hidden"></label>
+                                <input type="number" id="onsiteIcsMonths" name="onsiteIcsMonths" class="form-control" style="width: 60px">
+                                <span class="text-danger ml-2">months</span>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
-        <div class="col-sm-4">
-            {{--Vendor's Agreement--}}
-            <label for="vendorsAgreement" class="col-sm-5 col-form-label">Vendor's Agreement :</label>
-            <select class="form-control select2 select2bs4 @error("vendorsAgreement") is-invalid @enderror" style="width: 100%"
-                    name="vendorsAgreement" id="vendorsAgreement">
-                <option data-select2-id="0"></option>
-            </select>
-            @error("vendorsAgreement")
-                <p class="text-danger">{{$message}}</p>
-            @enderror
-
-            {{--Local&Foreign--}}
-            <div class="my-4">
-                <div class="custom-control custom-radio d-inline mr-2">
-                    <input class="custom-control-input" type="radio" id="local" name="nationality">
-                    <label for="local" class="custom-control-label">Local</label>
-                </div>
-                <div class="custom-control custom-radio d-inline">
-                    <input class="custom-control-input" type="radio" id="foreign" name="nationality">
-                    <label for="foreign" class="custom-control-label">Foreign</label>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-5 mt-3">
-            <div class="row">
-                {{-- $ Cost--}}
-                <div class="col-sm-5">
-                    <div class="row">
-                        <label class="col-sm-4 col-form-label" for="cost">$ Cost:</label>
-                        <div class="col-sm-8">
-                            <input type="number" id="cost" name="cost" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                {{--Acquired Cost--}}
-                <div class="col-sm-7">
-                    <div class="row">
-                        <label class="col-sm-4 col-form-label" for="acquiredCost">Acquired Cost:</label>
-                        <div class="col-sm-8">
-                            <input type="number" id="acquiredCost" name="acquiredCost" class="form-control">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt-3">
-                {{--List Price--}}
-                <div class="col-sm-5">
-                    <div class="row">
-                        <label class="col-sm-4 col-form-label" for="listPrice">List Price:</label>
-                        <div class="col-sm-8">
-                            <input type="number" id="listPrice" name="listPrice" class="form-control">
-                        </div>
-                    </div>
-                </div>
-                {{--Dealer Price--}}
-                <div class="col-sm-7">
-                    <div class="row">
-                        <label class="col-sm-4 col-form-label" for="dealerPrice">Dealer Price:</label>
-                        <div class="col-sm-8 mb-4">
-                            <input type="number" id="dealerPrice" name="dealerPrice" class="form-control">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- /.card-body -->
     </div>
 
-    {{--Notes/Remarks--}}
-    <div class="row my-3 ml-3">
-        <label class="col-sm-2 col-form-label text" for="remarks">Notes/Remarks :</label>
-        <div class="col-sm-10">
-            <input type="text" id="remarks" name="remarks" class="form-control">
+    <div class="card">
+        <div class="card-body">
+            {{--Waaranty, Vendor's Agreement, Local&Foreign--}}
+            <div class="form-group row mt-4">
+                {{--Warranty Period of Reference--}}
+                <div class="col-sm-3 pl-5">
+                    <label for="warranty">
+                        Warranty Period of Reference <i class="fa fa-question-circle" id="tooltip"></i> :
+                    </label>
+                    <div class="d-block ml-3">
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input" type="radio" id="warranty1" name="warranty">
+                            <label for="warranty1" class="custom-control-label font-weight-normal">Delivery Date to Client</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input" type="radio" id="warranty2" name="warranty">
+                            <label for="warranty2" class="custom-control-label font-weight-normal">Invoice Date of Supplier</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input" type="radio" id="warranty3" name="warranty">
+                            <label for="warranty3" class="custom-control-label font-weight-normal">Receiving Date from Supplier</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input class="custom-control-input" type="radio" id="warrant4" name="warranty">
+                            <label for="warrant4" class="custom-control-label font-weight-normal">Not Applicable</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4 mt-2">
+                    {{--Vendor's Agreement--}}
+                    <label for="vendorsAgreement">Vendor's Agreement :</label>
+                    <select class="form-control select2 select2bs4 @error("vendorsAgreement") is-invalid @enderror" style="width: 100%"
+                            name="vendorsAgreement" id="vendorsAgreement">
+                        <option data-select2-id="0"></option>
+                    </select>
+                    @error("vendorsAgreement")
+                    <p class="text-danger">{{$message}}</p>
+                    @enderror
+
+                    {{--Local&Foreign--}}
+                    <div class="my-4">
+                        <div class="custom-control custom-radio d-inline mr-2">
+                            <input class="custom-control-input" type="radio" id="local" name="nationality">
+                            <label for="local" class="custom-control-label">Local</label>
+                        </div>
+                        <div class="custom-control custom-radio d-inline">
+                            <input class="custom-control-input" type="radio" id="foreign" name="nationality">
+                            <label for="foreign" class="custom-control-label">Foreign</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <div class="row d-flex align-items-center">
+                        {{-- $ Cost--}}
+                        <div class="col-sm-5">
+                            <div class="row d-flex align-items-center">
+                                <label class="col-sm-4 col-form-label" for="cost">$ Cost:</label>
+                                <div class="col-sm-8">
+                                    <input type="number" id="cost" name="cost" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        {{--Acquired Cost--}}
+                        <div class="col-sm-7">
+                            <div class="row d-flex align-items-center">
+                                <label class="col-sm-4 col-form-label" for="acquiredCost">Acquired Cost:</label>
+                                <div class="col-sm-8">
+                                    <input type="number" id="acquiredCost" name="acquiredCost" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row d-flex align-items-center">
+                        {{--List Price--}}
+                        <div class="col-sm-5">
+                            <div class="row d-flex align-items-center">
+                                <label class="col-sm-4 col-form-label" for="listPrice">List Price:</label>
+                                <div class="col-sm-8">
+                                    <input type="number" id="listPrice" name="listPrice" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        {{--Dealer Price--}}
+                        <div class="col-sm-7">
+                            <div class="row d-flex align-items-center">
+                                <label class="col-sm-4 col-form-label" for="dealerPrice">Dealer Price:</label>
+                                <div class="col-sm-8">
+                                    <input type="number" id="dealerPrice" name="dealerPrice" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{--Notes/Remarks--}}
+            <div class="form-group row my-3">
+                <label class="col-sm-3 col-form-label text-center" for="remarks">Notes/Remarks :</label>
+                <div class="col-sm-9">
+                    <input type="text" id="remarks" name="remarks" class="form-control">
+                </div>
+            </div>
         </div>
     </div>
 @endsection
@@ -499,11 +524,11 @@
                 showConfirmButton: false,
                 timer: 5000
             });
-            const successCookie = "{{request()->cookie("success")}}";
-            if (successCookie) {
+            const createFlag = "{{session()->has("success")}}";
+            if (createFlag) {
                 Toast.fire({
                     type: 'success',
-                    title: "{{request()->cookie("success")}}"
+                    title: "{{session()->get("success")}}"
                 });
             }
         });
