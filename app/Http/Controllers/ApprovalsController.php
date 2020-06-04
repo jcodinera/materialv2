@@ -2,35 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Accounts;
-use App\Approver;
-use App\Header;
 use App\Http\Requests\CreateApprovals;
-use App\Http\Requests\CreateRequests;
+use App\IcmHeader;
 use App\Material;
-use App\MaterialType;
 use App\MatGroup1;
 use App\MatGroup2;
 use App\MatGroup3;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class ApprovalsController extends Controller
 {
-    public function create()
+    public function create($headerId)
     {
-        // Change depending on user login
-        $creatorID = 56395;
-//        $header = Header::where("creatorID", $creatorID)->first();
-        $header = Header::orderBy("dateRequested", "DESC")->first();
-        $materialType = MaterialType::where("matTypeID", $header->materialTypeID)->first()->description;
-        $approverName = Accounts::where("AccountID", $header->creatorID)->first();
+        $header = IcmHeader::where("creationHeaderID", $headerId)->first();
 
         return view("approvals/create")->with([
-            "materialType"=>$materialType,
             "header"=>$header,
-            "matGroups1"=>MatGroup1::all()->sortBy("Maj1"),
-            "approverName"=>$approverName->AccountName
+            "matGroups1"=>MatGroup1::all()->sortBy("Maj1")
         ]);
     }
 
@@ -48,15 +35,13 @@ class ApprovalsController extends Controller
 
     public function store(CreateApprovals $request)
     {
-        $matHeaderID = Material::all()->count() > 0 ? (Material::orderBy("matHeaderID", "DESC")->first()->matHeaderID + 1) : 1;
 //        Remarks is missing
         Material::create([
-            "matHeaderID"=>$matHeaderID,
-            "creationHeaderID"=>Header::orderBy("dateRequested", "DESC")->first()->creationHeaderID,
+            "creationHeaderID"=>$request->creationHeaderID,
             "matGrp1"=>$request->materialGroup1,
             "matGrp2"=>$request->materialGroup2,
             "matGrp3"=>$request->materialGroup3,
-            "remarks"=>null
+            "remarks"=>$request->approved == "on" ? "Approved" : "Rejected"
         ]);
 
         session()->flash("success", "Material has been Created successfully!");
@@ -66,6 +51,8 @@ class ApprovalsController extends Controller
 
     public function index()
     {
-
+//        dd(Material::first()->MatGroup3);
+        dd(Material::select("matGrp3")->get());
+        return view("approvals/index")->with(["approvals"=>Material::all()]);
     }
 }

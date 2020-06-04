@@ -4,7 +4,10 @@
 
 @section('content')
     <div class="card">
-        <h4 class="text-center card-header bg-gradient-gray-dark">~ Requestor Form ~</h4>
+        <div class="card-header bg-gradient-gray-dark">
+            <span class="pt-2">Request a Material</span>
+            <a href="{{route("requests.index")}}" class="btn btn-info btn-sm float-right">Requests List</a>
+        </div>
         <div class="card-body">
             <form action="{{route("requests.store")}}" method="POST">
                 @csrf
@@ -95,14 +98,15 @@
                         <div class="row d-flex align-items-center">
                             <label for="materialType" class="col-sm-4 col-form-label">Material Type :</label>
                             <div class="col-sm-8">
-                                <select class="form-control select2 select2bs4" style="width: 100%" name="materialType" id="materialType">
+                                <select class="form-control select2 select2bs4 @error("materialType") is-invalid @enderror"
+                                        style="width: 100%" name="materialType" id="materialType">
                                     <option value="0">Select Material Type</option>
                                     @foreach($materialTypes as $materialType)
                                         <option value="{{$materialType->matTypeID}}">{{$materialType->description}}</option>
                                     @endforeach
                                 </select>
                                 @error("materialType")
-                                <small class="text-danger text-left">{{$message}}</small>
+                                    <small class="text-danger text-left">{{$message}}</small>
                                 @enderror
                             </div>
                         </div>
@@ -110,14 +114,14 @@
                     <div class="col-sm mx-3">
                         {{-- Approver Name --}}
                         <div class="row d-flex align-items-center">
-                            <label for="approverName" class="col-sm-4 col-form-label align-items-center d-flex">Approver Name :</label>
+                            <label for="approverId" class="col-sm-4 col-form-label align-items-center d-flex">Approver Name :</label>
                             <div class="col-sm-8">
                                 {{--Tooltip--}}
-                                <select class="form-control select2 select2bs4 @error("approverName") is-invalid @enderror"
-                                        style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" name="approverName">
+                                <select class="form-control select2 select2bs4 @error("approverId") is-invalid @enderror"
+                                        style="width: 100%;" data-select2-id="1" tabindex="-1" aria-hidden="true" name="approverId" id="approverId">
                                 </select>
-                                @error("approverName")
-                                <small class="text-danger">{{$message}}</small>
+                                @error("approverId")
+                                    <small class="text-danger">{{$message}}</small>
                                 @enderror
                             </div>
                         </div>
@@ -204,7 +208,7 @@
 {{--    Approvers Dynamic Dropdown--}}
     <script type="text/javascript">
         $(document).ready(function () {
-            $('select[name="approverName"]').empty().append('<option value="'+ 0 +'">'+ 'Select Material Type first' +'</option>');
+            $('select[name="approverId"]').empty().append('<option value="'+ 0 +'">'+ 'Select Material Type first' +'</option>');
             $('select[name="materialType"]').on('change', function () {
                 var materialTypeId = $(this).val();
                 if (materialTypeId && materialTypeId > 0) {
@@ -213,14 +217,14 @@
                         type: 'GET',
                         dataType: "json",
                         success: function (data) {
-                            $('select[name="approverName"]').empty().append('<option value="'+ 0 +'">'+ 'Select Approver' +'</option>');
+                            $('select[name="approverId"]').empty().append('<option value="'+ 0 +'">'+ 'Select Approver' +'</option>');
                             $.each(data, function (key, value) {
-                                jQuery('select[name="approverName"]').append('<option value="'+ key +'">'+ value +'</option>');
+                                jQuery('select[name="approverId"]').append('<option value="'+ key +'">'+ value +'</option>');
                             })
                         }
                     });
                 } else {
-                    $('select[name="approverName"]').empty().append('<option value="'+ 0 +'">'+ 'Select Material Type first' +'</option>');
+                    $('select[name="approverId"]').empty().append('<option value="'+ 0 +'">'+ 'Select Material Type first' +'</option>');
                 }
             })
         });

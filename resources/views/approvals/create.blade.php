@@ -18,19 +18,20 @@
                 <div class="col-sm mx-1">
                     <div class="row d-flex align-items-center">
                         <div class="col-sm-5 px-0 py-1 text-bold">Requestor:</div>
+                        {{--Change this to name of the User--}}
                         <div class="col-sm-7 py-1">Joven Codinera</div>
                     </div>
                 </div>
                 <div class="col-sm mx-1">
                     <div class="row d-flex align-items-center">
                         <div class="col-sm-5 px-0 py-1 text-bold">Material Type:</div>
-                        <div class="col-sm-7 py-1">{{$materialType}}</div>
+                        <div class="col-sm-7 py-1">{{$header->MaterialType->description}}</div>
                     </div>
                 </div>
                 <div class="col-sm mx-1">
                     <div class="row d-flex align-items-center">
                         <div class="col-sm-6 px-0 py-1 text-bold">Approver Name:</div>
-                        <div class="col-sm-6 py-1">{{$approverName}}</div>
+                        <div class="col-sm-6 py-1">{{$header->approver->account->AccountName}}</div>
                     </div>
                 </div>
             </div>
@@ -83,7 +84,7 @@
 
     {{--Approver's Form--}}
     <div class="card">
-        <h4 class="card-header bg-gradient-gray-dark text-center">~ Approver Form ~</h4>
+        <h4 class="card-header bg-gradient-gray-dark text-center">Approver Form</h4>
         <div class="card-body">
             <form action="{{route("approvals.store")}}" method="POST">
                 @csrf
@@ -93,7 +94,9 @@
                         <div class="form-group row d-flex align-items-center">
                             <label for="productManager" class="col-sm-3 col-form-label">PRODUCT MANAGER :</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control  @error("productManager") is-invalid @enderror" id="productManager" name="productManager">
+{{--                                <input type="text" class="form-control  @error("productManager") is-invalid @enderror" id="productManager" name="productManager">--}}
+                                <input type="text" id="productManager" name="productManager" readonly class="text-bold" value="{{$header->approver->account->AccountName}}"
+                                       style="border:none; outline: none; background-color: transparent; font-family: inherit; font-size: inherit; width: 100%">
                                 @error("productManager")
                                     <p class="text-danger">{{$message}}</p>
                                 @enderror
@@ -189,6 +192,12 @@
                             <p class="text-danger pb-2">{{$message}} Please select Material Groups.</p>
                         @enderror
                     </div>
+                </div>
+
+                {{--Hidden Values--}}
+                <div class="form-group" hidden>
+                    <label for="creationHeaderID"></label>
+                    <input type="number" name="creationHeaderID" value="{{$header->creationHeaderID}}" id="creationHeaderID">
                 </div>
 
                 {{--Submit Button--}}

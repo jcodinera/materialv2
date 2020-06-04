@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Accounts;
 use App\Approver;
 use App\Header;
+use App\HeaderApprover;
 use App\Http\Requests\CreateRequests;
 use App\IcmHeader;
 use App\MaterialType;
@@ -34,7 +35,7 @@ class RequestsController extends Controller
 
     public function store(CreateRequests $requests)
     {
-//        dd($requests->all());
+        $creatorID = rand(114, 57636);
         IcmHeader::create([
             "materialTypeID"=>$requests->materialType,
             "shortDescription"=>$requests->shortDescription,
@@ -43,10 +44,11 @@ class RequestsController extends Controller
             "buyPrice"=>$requests->buyPrice,
             "refDoc"=>$requests->referenceDoc,
             "statusID"=>1,
-            "creatorID"=>57556,
+            "creatorID"=>$creatorID,
+            "approverID"=>Approver::where("mat_type_id", $requests->materialType)->where("account_id", $requests->approverId)->first()->approver_id,
             "dateRequested"=>$requests->dateRequested,
-            "dateCreated"=>date("Y-m-d H:i:s"),
-            "dateModified"=>date("Y-m-d H:i:s")
+            "dateCreated"=>$requests->dateRequested,
+            "dateModified"=>$requests->dateRequested
         ]);
 
         return redirect(route("requests.index"));
